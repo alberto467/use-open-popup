@@ -1,0 +1,54 @@
+@keyframes PopupContainerFade {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+  }
+}
+
+@keyframes PopupScrollContainerFade {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes PopupScrollContainerFadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+$duration: 300ms;
+
+.PopupContainer {
+  transition: background $duration linear;
+
+  &.FadeIn {
+    animation: PopupContainerFade $duration linear;
+    .PopupScrollContainer {
+      animation: PopupScrollContainerFade $duration cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  &.FadeOut {
+    .PopupScrollContainer {
+      animation: PopupScrollContainerFadeOut $duration cubic-bezier(0.8, 0, 1, 1) forwards;
+    }
+  }
+}

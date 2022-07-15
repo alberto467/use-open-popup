@@ -1,0 +1,46 @@
+{
+  "name": "use-open-popup",
+  "version": "0.0.1",
+  "description": "Easy hook-based popups and wrapper components",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "author": "alberto467 <alberto467@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src && prettier -c src/**/*.scss",
+    "lint:fix": "eslint src --fix && prettier -w src/**/*.scss",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "classnames": "^2.3.1",
+    "focus-trap": "^6.9.4"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@types/node": "^18.0.4",
+    "@types/react": "^18.0.15",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "@vitejs/plugin-react": "^2.0.0",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "postcss": "^8.4.14",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "sass": "^1.53.0",
+    "tailwindcss": "^3.1.6",
+    "terser": "^5.14.2",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.0",
+    "vite-plugin-dts": "^1.3.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}
