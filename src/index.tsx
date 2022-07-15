@@ -21,11 +21,13 @@ const popupContext = createContext<ShowFn<PopupInternalProps>>(() => {})
 function PopupContainer({
   popup: { Popup, props, fadeOut },
   hide,
-  showBg
+  showBg,
+  containerClassName
 }: {
   popup: PopupDetails
   hide: () => void
   showBg: boolean
+  containerClassName?: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -44,7 +46,8 @@ function PopupContainer({
         styles.PopupContainer,
         fadeOut ? styles.FadeOut : styles.FadeIn,
         'uop-fixed uop-inset-0 uop-flex uop-items-center uop-z-10',
-        showBg && 'uop-bg-black uop-bg-opacity-40'
+        showBg && 'uop-bg-black uop-bg-opacity-40',
+        containerClassName
       )}
       onClick={
         fadeOut
@@ -86,21 +89,36 @@ function PopupContainer({
 
 const TRANSITION_DURATION = 300
 
-export function PopupProvider({ children }: { children: ReactNode }) {
+export function PopupProvider({
+  children,
+  onOpen,
+  onFadeOut,
+  onClose,
+  containerClassName
+}: {
+  children: ReactNode
+  onOpen?: () => void
+  onFadeOut?: () => void
+  onClose?: () => void
+  containerClassName?: string
+}) {
   const [popups, setPopups] = useState<PopupDetails[]>([])
 
   const show = useCallback(<P extends PopupInternalProps>(Popup: PopupComponent<P>, props?: PopupExternalProps<P>) => {
     setPopups(s => [...s, { Popup, props } as PopupDetails])
+    onOpen?.()
   }, [])
 
   const hide = useCallback((index: number) => {
     setPopups(popups => {
       if (popups[index]) popups[index] = { ...popups[index], fadeOut: true }
+      if (popups.every(p => p.fadeOut)) onFadeOut?.()
       return [...popups]
     })
     setTimeout(() => {
       setPopups(popups => {
         popups.splice(index, 1)
+        if (popups.length === 0) onClose?.()
         return [...popups]
       })
     }, TRANSITION_DURATION)
@@ -115,7 +133,13 @@ export function PopupProvider({ children }: { children: ReactNode }) {
   return (
     <popupContext.Provider value={show}>
       {popups.map((popup, index) => (
-        <PopupContainer key={index} popup={popup} hide={() => hide(index)} showBg={index === lastActivePopupIndex} />
+        <PopupContainer
+          key={index}
+          popup={popup}
+          hide={() => hide(index)}
+          showBg={index === lastActivePopupIndex}
+          containerClassName={containerClassName}
+        />
       ))}
       {children}
     </popupContext.Provider>

@@ -1,6 +1,6 @@
 {
   "name": "use-open-popup",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Easy hook-based popups and wrapper components",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
