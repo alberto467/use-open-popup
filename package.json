@@ -6,6 +6,7 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "author": "alberto467 <alberto467@users.noreply.github.com>",
+  "repository": "https://github.com/alberto467/use-open-popup",
   "license": "MIT",
   "scripts": {
     "build": "vite build",
